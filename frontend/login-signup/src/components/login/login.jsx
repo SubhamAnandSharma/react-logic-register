@@ -61,8 +61,17 @@ const Login = () => {
                 email: DOMPurify.sanitize(user.email),
                 password: DOMPurify.sanitize(user.password)
             };
-    
-            const response = await axios.post('http://127.0.0.1:8000/auth/login/', sanitizedUser);
+
+            // Get CSRF token from cookies
+            const csrfToken = getCookie('csrftoken');
+
+            // Include CSRF token in the request headers
+            const response = await axios.post('http://127.0.0.1:8000/auth/login/', sanitizedUser, {
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            });
+            
             toast.success("Login successful"); // Toast a success message
             navigate('/home'); // Redirect to home page
             console.log(response);
@@ -71,7 +80,6 @@ const Login = () => {
             // Handle error response
         }
     };
-    
 
     const handleRegisterClick = () => {
         navigate('/register'); // Redirect to login page when "Login" button is clicked
@@ -87,6 +95,23 @@ const Login = () => {
             <div className="button" onClick={handleRegisterClick}>Register</div>
         </div>
     );
+};
+
+// Function to retrieve CSRF token from cookies
+const getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 };
 
 export default Login;

@@ -37,7 +37,16 @@ const Register = () => {
                 c_password: DOMPurify.sanitize(user.c_password)
             };
     
-            const response = await axios.post('http://127.0.0.1:8000/auth/register/', sanitizedUser);
+            // Get CSRF token from cookies
+            const csrfToken = getCookie('csrftoken');
+
+            // Include CSRF token in the request headers
+            const response = await axios.post('http://127.0.0.1:8000/auth/register/', sanitizedUser, {
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            });
+            
             console.log(response);
             sessionStorage.setItem('otp', response.data.otp);
             navigate('/verify_otp');
@@ -55,7 +64,23 @@ const Register = () => {
             }
         }
     };
-    
+
+    // Function to retrieve CSRF token from cookies
+    const getCookie = (name) => {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    };
 
     const handleLoginClick = () => {
         navigate('/login');
@@ -148,3 +173,4 @@ const Register = () => {
 }
 
 export default Register;
+
