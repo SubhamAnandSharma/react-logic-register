@@ -4,7 +4,12 @@
 
 This project is a registration and login system implemented using React for the frontend and Django for the backend.
 
-## Instructions to Start the Project
+## Steps to Start the Project
+
+1. **Clone the Repository**:
+   ```bash
+   git clone [<repository_url>](https://github.com/SubhamAnandSharma/react-logic-register.git)
+   ```
 
 ### Frontend:
 
@@ -112,11 +117,4 @@ This project is a registration and login system implemented using React for the 
 
 6. **Password Length**: Register with a password exceeding the maximum allowed length (should fail).
 
-## Steps to Start the Project
 
-### Frontend:
-
-1. **Clone the Repository**:
-   ```bash
-   git clone [<repository_url>](https://github.com/SubhamAnandSharma/react-logic-register.git)
-   ```
