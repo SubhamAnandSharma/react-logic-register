@@ -2,34 +2,48 @@
 
 ## Here are examples of test cases for each scenario:
 
-User Registration:
+### User Registration:
 
 Test case 1: Register with valid username, email, password, and confirm password.
+
 Example:
 Username: subham123
 Email: sharmasubham210@gmail.com
 Password: StrongPassword123
-Confirm Password: StrongPassword123
+Confirm Password: StrongPassword123!
+
 Test case 2: Register with an existing email address (should fail).
+
 Test case 3: Register with a weak password (less than 8 characters) (should fail).
+
 Test case 4: Register with mismatched passwords (should fail).
+
 Test case 5: Register with an invalid email format (should fail).
+
 Test case 6: Register with a username containing special characters or spaces (should fail).
-User Login:
+
+### User Login:
 
 Test case 1: Login with valid email and password.
+
 Example:
+
 Email: sharmasubham210@gmail.com
-Password: StrongPassword123
+Password: StrongPassword123!
+
 Test case 2: Login with incorrect email (should fail).
+
 Test case 3: Login with incorrect password (should fail).
+
 Test case 4: Login with both incorrect email and password (should fail).
-Email Verification:
+
+### Email Verification:
 
 Test case 1: Verify email with the correct OTP received in the email.
 Test case 2: Verify email with an incorrect OTP (should fail).
 Test case 3: Verify email with expired OTP (should fail).
-Validation Checks:
+
+### Validation Checks:
 
 Test case 1: Validate that all fields are required during registration and login.
 Test case 2: Validate that username cannot contain special characters or spaces.
