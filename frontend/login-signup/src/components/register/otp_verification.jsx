@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
-import axios from 'axios';
-import {toast} from 'react-toastify';
-import "./otp_verification.css";
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import './otp_verification.css';
 
 const OTP_verification = () => {
     const navigate = useNavigate();
-
     const [OTP, setOTP] = useState("");
 
     const handleChange = (e) => {
@@ -21,9 +19,18 @@ const OTP_verification = () => {
                 throw new Error("No OTP found");
             }
             if (OTP === storedOTP) {
+                // Update is_verified to true in localStorage
+                const storedEmail = localStorage.getItem('email');
+                if (storedEmail) {
+                    const parsedEmail = JSON.parse(storedEmail);
+                    parsedEmail.is_verified = true;
+                    localStorage.setItem('email', JSON.stringify(parsedEmail));
+                } else {
+                    throw new Error("Email not found");
+                }
+    
                 toast.success("OTP verified successfully");
                 navigate('/login');
-                // Redirect to the desired page after successful OTP verification
             } else {
                 toast.error("Invalid OTP");
             }

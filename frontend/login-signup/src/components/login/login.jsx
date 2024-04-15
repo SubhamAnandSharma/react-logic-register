@@ -61,25 +61,41 @@ const Login = () => {
                 email: DOMPurify.sanitize(user.email),
                 password: DOMPurify.sanitize(user.password)
             };
-
+    
             // Get CSRF token from cookies
             const csrfToken = getCookie('csrftoken');
-
+    
             // Include CSRF token in the request headers
             const response = await axios.post('http://127.0.0.1:8000/auth/login/', sanitizedUser, {
                 headers: {
                     'X-CSRFToken': csrfToken
                 }
             });
-            
-            toast.success("Login successful"); // Toast a success message
-            navigate('/home'); // Redirect to home page
-            // console.log(response);
+    
+            // Check if the user's email is verified
+            const storedEmail = localStorage.getItem('email');
+            if (storedEmail) {
+                const { email, is_verified } = JSON.parse(storedEmail);
+                if (!is_verified) {
+                    toast.error("Please register and verify your email before logging in");
+                    return; // Exit if email is not verified
+                }else{
+                    toast.success("Login successful"); // Toast a success message
+                    navigate('/home'); // Redirect to home page
+                    // console.log(response);
+                }
+            } else {
+                toast.error("Please register and verify your email before logging in");
+                return; // Exit if email is not found in storage
+            }
+    
+
         } catch (error) {
             console.error('Error logging in:', error.response.data);
             // Handle error response
         }
     };
+    
 
     const handleRegisterClick = () => {
         navigate('/register'); // Redirect to login page when "Login" button is clicked

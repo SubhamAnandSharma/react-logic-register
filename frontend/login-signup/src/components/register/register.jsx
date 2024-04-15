@@ -39,15 +39,17 @@ const Register = () => {
     
             // Get CSRF token from cookies
             const csrfToken = getCookie('csrftoken');
-
+    
             // Include CSRF token in the request headers
             const response = await axios.post('http://127.0.0.1:8000/auth/register/', sanitizedUser, {
                 headers: {
                     'X-CSRFToken': csrfToken
                 }
             });
-            
-            // console.log(response);
+    
+            // Store email with is_verified flag set to false in localStorage
+            localStorage.setItem('email', JSON.stringify({ email: sanitizedUser.email, is_verified: false }));
+    
             sessionStorage.setItem('otp', response.data.otp);
             navigate('/verify_otp');
             toast.info("Check your email for the OTP");
@@ -121,7 +123,7 @@ const Register = () => {
 
         // Check if username contains only letters and numbers
         if (!validator.isAlphanumeric(username)) {
-            toast.error("Username can only contain letters and numbers");
+            toast.error("Username can only contain letters and numbers, no space allowed!");
             return false;
         }
 
