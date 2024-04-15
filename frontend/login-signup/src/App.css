@@ -1,0 +1,27 @@
+.app {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+*{
+    padding:0 ;
+    margin:0;
+    box-sizing: border-box;
+}
+
+.app{
+    /* display: flex;
+    width: 50%;
+    margin: auto;
+    height: 100%;
+    justify-content: center; */
+    display: grid;
+    width: 100%;
+    place-items: center;
+    align-items: center;
+}
