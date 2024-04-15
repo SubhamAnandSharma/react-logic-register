@@ -47,7 +47,7 @@ const Register = () => {
                 }
             });
             
-            console.log(response);
+            // console.log(response);
             sessionStorage.setItem('otp', response.data.otp);
             navigate('/verify_otp');
             toast.info("Check your email for the OTP");

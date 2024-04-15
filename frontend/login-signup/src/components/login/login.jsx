@@ -74,7 +74,7 @@ const Login = () => {
             
             toast.success("Login successful"); // Toast a success message
             navigate('/home'); // Redirect to home page
-            console.log(response);
+            // console.log(response);
         } catch (error) {
             console.error('Error logging in:', error.response.data);
             // Handle error response
