@@ -45,7 +45,7 @@ This project is a registration and login system implemented using React for the 
    Example:
    - Username: subham123
    - Email: sharmasubham210@gmail.com
-   - Password: StrongPassword123
+   - Password: StrongPassword123!
    - Confirm Password: StrongPassword123!
 
 2. **Existing Email**: Register with an existing email address (should fail).
